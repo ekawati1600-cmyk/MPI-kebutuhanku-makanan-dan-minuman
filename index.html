@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MPI Kebutuhanku — Makanan dan Minuman</title>
+<style>
+:root{--ink:#263238;--green:#2e7d5b;--mint:#dff5e8;--yellow:#fff0bd;--pink:#ffe2ec;--blue:#dfefff;--purple:#eee4ff;--paper:#fffdf7;--line:#e5e7eb;--shadow:0 8px 24px #243b5320}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#fff8e8,#edf8f2);color:var(--ink);font-family:"Trebuchet MS",Arial,sans-serif;min-height:100vh}
+button{font:inherit;cursor:pointer;border:0;border-radius:18px;padding:13px 18px;font-weight:800;transition:transform .12s,filter .12s}button:hover{filter:brightness(.98);transform:translateY(-1px)}button:focus-visible{outline:4px solid #f4b942;outline-offset:3px}
+.primary{background:var(--green);color:white}.secondary{background:#eef2f3;color:var(--ink)}.yellow{background:#ffcf57;color:#543b00}.pink{background:#ffd7e4;color:#713b50}.blue{background:#d5eaff;color:#20496b}
+header{max-width:1100px;margin:auto;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand{font-weight:900;display:flex;align-items:center;gap:9px}.brand-icon{background:white;border-radius:14px;padding:8px;box-shadow:var(--shadow)}
+main{max-width:1100px;margin:0 auto;padding:12px 20px 28px}.screen{display:none;animation:enter .25s ease}.screen.active{display:block}@keyframes enter{from{opacity:.3;transform:translateY(6px)}to{opacity:1;transform:none}}
+.panel{background:#ffffffeb;border:1px solid #ffffff;border-radius:28px;padding:clamp(18px,4vw,38px);box-shadow:var(--shadow)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center;min-height:460px}.eyebrow{color:var(--green);font-size:.88rem;letter-spacing:.08em;font-weight:900;text-transform:uppercase}
+h1{font-size:clamp(2.1rem,5vw,4rem);line-height:1.05;margin:12px 0}h2{font-size:clamp(1.55rem,3vw,2.25rem);margin:0 0 12px}h3{margin:0 0 8px}p{line-height:1.6}.lead{font-size:1.12rem;max-width:570px}.hero-art{background:linear-gradient(145deg,#fff0bd,#dff5e8);border-radius:30px;min-height:300px;display:grid;place-items:center;font-size:clamp(4rem,10vw,8rem);position:relative;overflow:hidden}.hero-art .mini{position:absolute;font-size:clamp(2rem,4vw,3.4rem);animation:bob 3s infinite ease-in-out}.hero-art .a{top:15%;left:13%}.hero-art .b{top:16%;right:13%;animation-delay:.5s}.hero-art .c{bottom:15%;left:18%;animation-delay:1s}.hero-art .d{bottom:13%;right:15%;animation-delay:1.5s}@keyframes bob{50%{transform:translateY(-8px) rotate(3deg)}}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.menu-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:24px}.menu-card{padding:22px 12px;min-height:155px;text-align:center;border:2px solid transparent;box-shadow:var(--shadow);border-radius:24px;font-size:1rem}.menu-card .emoji{display:block;font-size:3rem;margin-bottom:10px}.menu-card small{display:block;font-weight:500;margin-top:6px}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}.tag{display:inline-flex;padding:7px 12px;border-radius:999px;background:var(--mint);color:#225b42;font-weight:800;font-size:.86rem}.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.category{border-radius:22px;padding:20px;background:#f7fbf8;border:2px solid #e4f0e7}.category.drinks{background:#f4f9ff;border-color:#dfedff}.food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.food-card{background:white;border:2px solid var(--line);border-radius:18px;padding:14px 8px;text-align:center;min-height:112px;color:var(--ink)}.food-card .emoji{display:block;font-size:2.4rem;margin-bottom:5px}.food-card.selected{border-color:var(--green);background:#e7f7ee}.food-card small{font-size:.82rem;font-weight:600}
+.callout{padding:16px 18px;border-radius:18px;background:var(--yellow);margin-top:18px;line-height:1.5}.sim-layout{display:grid;grid-template-columns:1fr 1fr;gap:18px}.cards-bank,.drop-zone{background:#f8fafc;border:2px dashed #cbd5e1;border-radius:22px;padding:16px;min-height:210px}.cards-bank{display:grid;grid-template-columns:repeat(3,1fr);align-content:start;gap:10px}.sort-card{background:white;border:2px solid #dce5e8;border-radius:16px;padding:12px 4px;text-align:center;min-height:100px}.sort-card .emoji{display:block;font-size:2rem}.sort-card.chosen{border-color:#2e7d5b;background:#e4f6eb}.zones{display:grid;grid-template-columns:1fr 1fr;gap:12px}.drop-zone{min-height:205px;text-align:center;border-style:solid;cursor:pointer}.drop-zone.food{background:#e7f7ed;border-color:#9bd4b1}.drop-zone.drink{background:#e7f2ff;border-color:#a7cffa}.drop-zone .emoji{font-size:2.6rem}.placed{font-size:.9rem;background:#ffffffd9;border-radius:10px;padding:5px 7px;display:inline-block;margin:3px}
+.quiz-wrap{max-width:760px;margin:auto}.progress{height:10px;background:#e7ecee;border-radius:99px;overflow:hidden;margin:14px 0 22px}.progress>div{height:100%;background:var(--green);width:0;transition:width .2s}.question-art{font-size:4.5rem;text-align:center;background:#fff7dc;border-radius:22px;padding:14px;margin:14px 0}.answers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.answer{background:#f8fafc;border:2px solid #dfe6e8;padding:18px 10px;min-height:120px}.answer .emoji{display:block;font-size:2.6rem;margin-bottom:7px}.answer.correct{background:#e2f6e9;border-color:#29945a}.answer.wrong{background:#fff0ef;border-color:#dc7770}.feedback{margin-top:14px;padding:14px 16px;border-radius:16px;background:#f0f7f3;font-weight:700}.result{text-align:center;padding:25px}.result .big{font-size:5rem}.profile-grid{display:grid;grid-template-columns:140px 1fr;gap:20px;align-items:center}.profile-icon{font-size:5rem;background:var(--purple);border-radius:24px;padding:20px;text-align:center}
+footer{max-width:1100px;margin:0 auto;padding:0 20px 24px;text-align:center;color:#66736e;font-size:.85rem}.nav-bottom{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:22px}.sr{position:absolute;left:-10000px}
+@media(max-width:720px){header{padding:12px 14px}main{padding:8px 14px 22px}.hero{grid-template-columns:1fr;min-height:0}.hero-art{min-height:220px;grid-row:1}.menu-grid{grid-template-columns:repeat(2,1fr)}.content-grid,.sim-layout{grid-template-columns:1fr}.food-grid{grid-template-columns:repeat(3,1fr)}.answers{grid-template-columns:1fr}.answer{min-height:0;display:flex;align-items:center;gap:12px;text-align:left}.answer .emoji{margin:0}.profile-grid{grid-template-columns:1fr}.profile-icon{font-size:3.5rem}.panel{padding:18px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="brand-icon">🍎</span><span>MPI Kebutuhanku</span></div>
+  <button class="secondary" id="soundToggle" aria-pressed="false" title="Aktifkan atau nonaktifkan suara">🔊 Suara: Mati</button>
+</header>
+<main>
+<section id="splash" class="screen active">
+ <div class="panel hero">
+  <div><div class="eyebrow">TK Kuncup Pertiwi Mikuasi · Kelompok A</div><h1>Ayo Mengenal <span style="color:#2e7d5b">Makanan</span> dan <span style="color:#d28a00">Minuman!</span></h1>
+   <p class="lead">Belajar sambil bermain. Kenali makanan, pilih minuman, dan coba permainan seru bersama!</p>
+   <div class="btn-row"><button class="primary" onclick="go('home');speak('Halo teman-teman! Yuk belajar makanan dan minuman!')">Mulai Belajar ✨</button></div>
+   <p><small>Untuk anak usia 4–5 tahun · Dapat digunakan tanpa internet</small></p>
+  </div>
+  <div class="hero-art" aria-label="Ilustrasi makanan dan minuman"><span>🍽️</span><span class="mini a">🍎</span><span class="mini b">🥛</span><span class="mini c">🥕</span><span class="mini d">💧</span></div>
+ </div>
+</section>
+<section id="home" class="screen">
+ <div class="panel">
+  <div class="eyebrow">Halo, teman hebat!</div><h2>Mau belajar apa hari ini?</h2><p>Pilih salah satu kegiatan. Sentuh gambar yang kamu suka.</p>
+  <div class="menu-grid">
+   <button class="menu-card" style="background:#dff5e8" onclick="go('materi')"><span class="emoji">📚</span>Materi<small>Kenali makanan & minuman</small></button>
+   <button class="menu-card" style="background:#fff0bd" onclick="startSimulation();go('simulasi')"><span class="emoji">🧺</span>Simulasi<small>Cocokkan gambar</small></button>
+   <button class="menu-card" style="background:#ffe2ec" onclick="startQuiz();go('kuis')"><span class="emoji">⭐</span>Kuis<small>Jawab 3 pertanyaan</small></button>
+   <button class="menu-card" style="background:#eee4ff" onclick="go('profil')"><span class="emoji">🏫</span>Profil<small>Tentang media ini</small></button>
+  </div>
+  <div class="callout">💡 <b>Ingat:</b> Kita makan makanan yang beragam, minum air putih saat haus, dan mencuci tangan sebelum makan.</div>
+ </div>
+</section>
+<section id="materi" class="screen">
+ <div class="panel">
+  <div class="topline"><div><span class="tag">01 · AYO BELAJAR</span><h2 style="margin-top:10px">Makanan dan Minuman</h2></div><button class="secondary" onclick="go('home')">⌂ Menu Utama</button></div>
+  <p>Sentuh kartu gambar untuk mendengar nama dan mengenal manfaatnya.</p>
+  <div class="content-grid">
+   <div class="category"><h3>🍽️ Makanan</h3><p>Makanan membantu tubuh mendapat energi dan zat gizi untuk tumbuh.</p><div class="food-grid" id="foodGrid"></div></div>
+   <div class="category drinks"><h3>🥤 Minuman</h3><p>Minuman membantu memenuhi kebutuhan cairan tubuh.</p><div class="food-grid" id="drinkGrid"></div></div>
+  </div>
+  <div id="itemInfo" class="callout" aria-live="polite">Pilih satu gambar, ya!</div>
+  <div class="nav-bottom"><button class="secondary" onclick="go('home')">← Kembali</button><button class="primary" onclick="startSimulation();go('simulasi')">Lanjut ke Simulasi →</button></div>
+ </div>
+</section>
+<section id="simulasi" class="screen">
+ <div class="panel">
+  <div class="topline"><div><span class="tag">02 · AYO MENCOCOKKAN</span><h2 style="margin-top:10px">Masukkan ke Kelompok yang Tepat!</h2></div><button class="secondary" onclick="go('home')">⌂ Menu Utama</button></div>
+  <p>Pilih satu kartu gambar, lalu sentuh wadah <b>Makanan</b> atau <b>Minuman</b>. Ayo kelompokkan semua gambar!</p>
+  <div class="sim-layout">
+   <div><h3>🃏 Kartu gambar</h3><div id="sortBank" class="cards-bank"></div></div>
+   <div><h3>🧺 Pilih wadah</h3><div class="zones">
+    <button class="drop-zone food" onclick="placeCard('Makanan')"><span class="emoji">🍽️</span><h3>MAKANAN</h3><div id="foodPlaced"></div></button>
+    <button class="drop-zone drink" onclick="placeCard('Minuman')"><span class="emoji">🥤</span><h3>MINUMAN</h3><div id="drinkPlaced"></div></button>
+   </div></div>
+  </div>
+  <div class="btn-row"><button class="primary" onclick="checkSort()">Cek Jawaban ✓</button><button class="secondary" onclick="startSimulation()">Ulangi ↻</button></div>
+  <div id="sortFeedback" class="feedback" aria-live="polite" hidden></div>
+  <div class="nav-bottom"><button class="secondary" onclick="go('materi')">← Kembali ke Materi</button><button class="primary" onclick="startQuiz();go('kuis')">Lanjut ke Kuis →</button></div>
+ </div>
+</section>
+<section id="kuis" class="screen">
+ <div class="panel quiz-wrap">
+  <div class="topline"><div><span class="tag">03 · AYO MENJAWAB</span><h2 style="margin-top:10px">Kuis Teman Hebat</h2></div><button class="secondary" onclick="go('home')">⌂ Menu Utama</button></div>
+  <div id="quizContent"></div>
+ </div>
+</section>
+<section id="hasil" class="screen">
+ <div class="panel result">
+  <div class="big" id="resultEmoji">🌟</div><span class="tag">KUIS SELESAI</span><h2 id="resultTitle">Hebat, Teman Hebat!</h2><p id="resultText"></p><div class="btn-row" style="justify-content:center"><button class="primary" onclick="startQuiz();go('kuis')">Main Lagi ↻</button><button class="secondary" onclick="go('home')">Menu Utama ⌂</button></div>
+ </div>
+</section>
+<section id="profil" class="screen">
+ <div class="panel">
+  <div class="topline"><div><span class="tag">TENTANG MEDIA</span><h2 style="margin-top:10px">Profil MPI</h2></div><button class="secondary" onclick="go('home')">⌂ Menu Utama</button></div>
+  <div class="profile-grid"><div class="profile-icon">🏫</div><div><h3>MPI “Makanan dan Minuman”</h3><p><b>Satuan pendidikan:</b> TK Kuncup Pertiwi Mikuasi<br><b>Kelompok:</b> A (usia 4–5 tahun)<br><b>Kurikulum:</b> Kurikulum Merdeka · Fase Fondasi<br><b>Topik:</b> Kebutuhanku — Makanan dan Minuman</p><p>Media ini mendukung anak belajar melalui gambar, pilihan, pengelompokan, percakapan, dan kuis sederhana.</p></div></div>
+  <div class="callout">👩‍🏫 <b>Catatan guru:</b> Dampingi anak saat bermain. Terima jawaban lisan atau dengan menunjuk gambar, dan gunakan hasil permainan sebagai bahan observasi, bukan satu-satunya penilaian.</div>
+  <div class="nav-bottom"><button class="primary" onclick="go('home')">Kembali ke Menu Utama</button></div>
+ </div>
+</section>
+</main>
+<footer>MPI Kebutuhanku · TK Kuncup Pertiwi Mikuasi · Dirancang untuk belajar sambil bermain</footer>
+<script>
+const items=[
+ {id:'nasi',name:'Nasi',emoji:'🍚',type:'Makanan',info:'Nasi adalah makanan sumber energi.'},
+ {id:'ikan',name:'Ikan',emoji:'🐟',type:'Makanan',info:'Ikan mengandung protein yang membantu tubuh tumbuh.'},
+ {id:'sayur',name:'Sayur',emoji:'🥦',type:'Makanan',info:'Sayuran mengandung vitamin, mineral, dan serat.'},
+ {id:'pisang',name:'Pisang',emoji:'🍌',type:'Makanan',info:'Pisang adalah buah yang mengandung zat gizi dan energi.'},
+ {id:'telur',name:'Telur',emoji:'🥚',type:'Makanan',info:'Telur mengandung protein.'},
+ {id:'roti',name:'Roti',emoji:'🍞',type:'Makanan',info:'Roti dapat menjadi sumber energi.'},
+ {id:'air',name:'Air putih',emoji:'💧',type:'Minuman',info:'Air putih membantu memenuhi kebutuhan cairan tubuh.'},
+ {id:'susu',name:'Susu',emoji:'🥛',type:'Minuman',info:'Susu mengandung protein dan kalsium.'},
+ {id:'kelapa',name:'Air kelapa',emoji:'🥥',type:'Minuman',info:'Air kelapa adalah minuman. Air putih tetap pilihan utama sehari-hari.'}
+];
+let soundOn=false, selectedSort=null, sortAnswers={}, sortChecked=false, quizIndex=0,quizScore=0,quizChoice=null,quizAnswered=false;
+const questions=[
+ {q:'Manakah yang termasuk makanan?',art:'🍽️',opts:[{e:'🍚',t:'Nasi'},{e:'💧',t:'Air putih'},{e:'🥛',t:'Susu'}],key:0,good:'Hebat! Nasi termasuk makanan.',hint:'Lihat lagi: mana yang dimakan, bukan diminum?'},
+ {q:'Saat haus, minuman apa yang baik untuk tubuh?',art:'💧',opts:[{e:'🍬',t:'Permen'},{e:'💧',t:'Air putih'},{e:'🍞',t:'Roti'}],key:1,good:'Betul! Air putih membantu tubuh tetap terhidrasi.',hint:'Pilih minuman yang bisa membantu memenuhi cairan tubuh.'},
+ {q:'Setelah bermain di luar, kamu merasa haus. Apa yang sebaiknya kamu lakukan?',art:'🏃‍♀️',opts:[{e:'💧',t:'Minum air putih'},{e:'🙅',t:'Tidak perlu minum'},{e:'🍬',t:'Makan permen'}],key:0,good:'Pintar! Saat haus, minumlah air putih.',hint:'Pikirkan apa yang dibutuhkan tubuh saat haus.'}
+];
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));window.scrollTo({top:0,behavior:'smooth'});if(id==='materi')renderMaterials();}
+function speak(text){if(!soundOn||!('speechSynthesis'in window))return;window.speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang='id-ID';u.rate=.88;window.speechSynthesis.speak(u)}
+document.getElementById('soundToggle').addEventListener('click',()=>{soundOn=!soundOn;let b=document.getElementById('soundToggle');b.textContent=soundOn?'🔊 Suara: Nyala':'🔊 Suara: Mati';b.setAttribute('aria-pressed',String(soundOn));if(soundOn)speak('Suara sudah dinyalakan. Selamat belajar!');else if('speechSynthesis'in window)window.speechSynthesis.cancel();});
+function renderMaterials(){
+ const render=(type,id)=>{document.getElementById(id).innerHTML=items.filter(x=>x.type===type).map(x=>`<button class="food-card" onclick="showItem('${x.id}')" aria-label="Pelajari ${x.name}"><span class="emoji">${x.emoji}</span><b>${x.name}</b></button>`).join('')};
+ render('Makanan','foodGrid');render('Minuman','drinkGrid');
+}
+function showItem(id){const x=items.find(i=>i.id===id);document.getElementById('itemInfo').innerHTML=`<b>${x.emoji} ${x.name}</b><br>${x.info} <button class="secondary" style="margin-left:8px;padding:8px 12px" onclick="speak('${x.name}. ${x.info}')">🔊 Dengarkan</button>`;speak(x.name+'. '+x.info)}
+function startSimulation(){selectedSort=null;sortAnswers={};sortChecked=false;document.getElementById('sortFeedback').hidden=true;renderSort();}
+function renderSort(){
+ const shuffled=[...items.slice(0,4),...items.slice(6,9)]; // 4 makanan dan 3 minuman
+ document.getElementById('sortBank').innerHTML=shuffled.map(x=>`<button class="sort-card ${selectedSort===x.id?'chosen':''}" onclick="selectSort('${x.id}')" aria-pressed="${selectedSort===x.id}"><span class="emoji">${x.emoji}</span><b>${x.name}</b>${sortAnswers[x.id]?'<small>✓ Dipilih</small>':''}</button>`).join('');
+ document.getElementById('foodPlaced').innerHTML=shuffled.filter(x=>sortAnswers[x.id]==='Makanan').map(x=>`<span class="placed">${x.emoji} ${x.name}</span>`).join('');
+ document.getElementById('drinkPlaced').innerHTML=shuffled.filter(x=>sortAnswers[x.id]==='Minuman').map(x=>`<span class="placed">${x.emoji} ${x.name}</span>`).join('');
+}
+function selectSort(id){selectedSort=id;sortChecked=false;document.getElementById('sortFeedback').hidden=true;renderSort();const x=items.find(i=>i.id===id);speak('Kamu memilih '+x.name+'. Sekarang pilih wadah makanan atau minuman.');}
+function placeCard(type){if(!selectedSort){const f=document.getElementById('sortFeedback');f.hidden=false;f.textContent='Pilih satu kartu gambar terlebih dahulu, ya!';return}sortAnswers[selectedSort]=type;selectedSort=null;sortChecked=false;document.getElementById('sortFeedback').hidden=true;renderSort();}
+function checkSort(){const f=document.getElementById('sortFeedback');f.hidden=false;const selected=items.filter(x=>['nasi','ikan','sayur','pisang','air','susu','kelapa'].includes(x.id));const answered=selected.filter(x=>sortAnswers[x.id]);const correct=answered.filter(x=>sortAnswers[x.id]===x.type).length;const missing=selected.length-answered.length;sortChecked=true;if(missing>0){f.textContent=`Kamu sudah mengelompokkan ${answered.length} dari ${selected.length} gambar. Ayo pilih semua kartu dulu!`}else if(correct===selected.length){f.textContent=`Hebat! Semua ${correct} gambar dikelompokkan dengan benar!`;speak('Hebat! Semua gambar dikelompokkan dengan benar!')}else{const wrong=selected.filter(x=>sortAnswers[x.id]!==x.type).map(x=>x.name).join(', ');f.textContent=`${correct} dari ${selected.length} benar. Coba periksa kembali: ${wrong}.`;speak('Bagus sudah mencoba. Ayo periksa kembali gambar yang belum tepat.')} }
+function startQuiz(){quizIndex=0;quizScore=0;quizChoice=null;quizAnswered=false;renderQuiz();}
+function renderQuiz(){
+ const q=questions[quizIndex];const percent=(quizIndex/questions.length)*100;
+ document.getElementById('quizContent').innerHTML=`<div class="topline"><b>Soal ${quizIndex+1} dari ${questions.length}</b><span class="tag">⭐ Skor: ${quizScore}</span></div><div class="progress"><div style="width:${percent}%"></div></div><h3>${q.q}</h3><div class="question-art">${q.art}</div><div class="answers">${q.opts.map((o,i)=>`<button class="answer ${quizAnswered&&i===q.key?'correct':''} ${quizAnswered&&quizChoice===i&&i!==q.key?'wrong':''}" onclick="answerQuiz(${i})" ${quizAnswered?'disabled':''}><span class="emoji">${o.e}</span><b>${String.fromCharCode(65+i)}. ${o.t}</b></button>`).join('')}</div><div id="quizFeedback" class="feedback" aria-live="polite" ${quizAnswered?'':'hidden'}>${quizAnswered?(quizChoice===q.key?q.good:q.hint):''}</div><div class="btn-row" style="justify-content:flex-end"><button id="nextQuiz" class="primary" onclick="nextQuiz()" ${quizAnswered?'':'disabled'}>${quizIndex===questions.length-1?'Lihat Hasil':'Soal Berikutnya →'}</button></div>`;
+ if(soundOn)speak(q.q);
+}
+function answerQuiz(i){if(quizAnswered)return;quizChoice=i;quizAnswered=true;const q=questions[quizIndex];if(i===q.key)quizScore++;renderQuiz();const fb=document.getElementById('quizFeedback');if(fb)fb.hidden=false;}
+function nextQuiz(){if(!quizAnswered)return;if(quizIndex<questions.length-1){quizIndex++;quizChoice=null;quizAnswered=false;renderQuiz()}else{showResult()}}
+function showResult(){go('hasil');document.getElementById('resultEmoji').textContent=quizScore===3?'🏆':quizScore===2?'🌟':'🌱';document.getElementById('resultTitle').textContent=quizScore===3?'Hebat! Semua Benar!':quizScore===2?'Bagus Sekali!':'Terima Kasih Sudah Mencoba!';document.getElementById('resultText').textContent=`Skormu ${quizScore} dari 3. ${quizScore===3?'Kamu sudah mengenal makanan dan minuman dengan baik!':'Ayo belajar lagi bersama guru. Setiap mencoba, kamu sedang belajar!'}`;speak(document.getElementById('resultText').textContent)}
+renderMaterials();
+</script>
+</body>
+</html>
